@@ -20,7 +20,7 @@ namespace LearningTesting.Services
             },
             new Vehicle()
             {
-                VechicleRegistration=Guid.NewGuid(),
+                VechicleRegistration=new Guid("9c9e6679-7425-40de-944b-e07fc1f90ae7"),
                 Brand="AUDI",
                 Model="A3",
                 Colour="White"
@@ -56,9 +56,9 @@ namespace LearningTesting.Services
             return listVehicles;
         }
 
-        public IEnumerable<Vehicle> GetVehicleByColour(string colour)
+        public Vehicle GetVehicleByColour(string colour)
         {
-            return listVehicles.Where(v => v.Colour.Equals(colour));
+            return listVehicles.FirstOrDefault(v => v.Colour.Equals(colour));
         }
     }
 }

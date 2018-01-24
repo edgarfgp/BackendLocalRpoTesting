@@ -18,7 +18,9 @@ namespace LearningTesting.Test
         public async Task Setup()
         {
             container = new UnityContainer();
+
             await Helpers.LearningTestingHelper.RegisterLearningTestingHelper(container);
+
             container.RegisterType<IVehicleService, VehicleService>();
 
             vehicleService = container.Resolve<IVehicleService>();
@@ -28,6 +30,7 @@ namespace LearningTesting.Test
         [TestMethod]
         public async Task VehicleService_AddVehicleTestAsync()
         {
+            dbRepo = container.Resolve<IDatabaseRepo>();
             var vehicle = new Vehicle()
             {
                 Id = Guid.NewGuid(),
@@ -46,7 +49,7 @@ namespace LearningTesting.Test
         [TestMethod]
         public async Task VehicleService_GetVehicleTestAsync()
         {
-           
+            dbRepo = container.Resolve<IDatabaseRepo>();
             var vehicle = new Vehicle()
             {
                 Id = new Guid("8c9e6679-7425-40de-944b-e07fc1f90ae7"),
@@ -55,10 +58,10 @@ namespace LearningTesting.Test
                 Model = "FOCUS",
                 Colour = "Black"
             };
-           
+
 
             await dbRepo.Create<Vehicle>(vehicle);
-          
+
             var resultMemGet = await dbRepo.Get<Vehicle>(vehicle.Id);
             var resultSer = vehicleService.GetVehicle(vehicle.VechicleRegistration);
 
@@ -67,10 +70,22 @@ namespace LearningTesting.Test
         }
 
         [TestMethod]
-        [Ignore]
-        public void VehicleService_GetVehicleByColour()
+        public async Task VehicleService_GetVehicleByColour()
         {
+            dbRepo = container.Resolve<IDatabaseRepo>();
+            var vehicle = new Vehicle()
+            {
+                Id = new Guid("9c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                VechicleRegistration = new Guid("7c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                Brand = "FORD",
+                Model = "FOCUS",
+                Colour = "Black"
+            };
+            await dbRepo.Create<Vehicle>(vehicle);
 
+            var resultMemGet = await dbRepo.Get<Vehicle>(vehicle.Id);
+            var resultSer = vehicleService.GetVehicleByColour(vehicle.Colour);
+            Assert.AreEqual(resultMemGet.Colour, resultSer.Colour);
         }
     }
 }
