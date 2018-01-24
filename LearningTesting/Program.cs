@@ -9,7 +9,8 @@ namespace LearningTesting
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Learning Test");
+            
         }
     }
 }

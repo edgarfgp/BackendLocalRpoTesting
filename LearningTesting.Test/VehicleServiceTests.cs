@@ -13,24 +13,21 @@ namespace LearningTesting.Test
     {
         private IUnityContainer container;
         private IVehicleService vehicleService;
-
+        private IDatabaseRepo dbRepo;
         [TestInitialize]
         public async Task Setup()
         {
             container = new UnityContainer();
-            
             await Helpers.LearningTestingHelper.RegisterLearningTestingHelper(container);
-
             container.RegisterType<IVehicleService, VehicleService>();
 
             vehicleService = container.Resolve<IVehicleService>();
+            dbRepo = container.Resolve<IDatabaseRepo>();
         }
 
         [TestMethod]
         public async Task VehicleService_AddVehicleTestAsync()
         {
-            var dbRepo = container.Resolve<IDatabaseRepo>();
-
             var vehicle = new Vehicle()
             {
                 Id = Guid.NewGuid(),
@@ -49,7 +46,7 @@ namespace LearningTesting.Test
         [TestMethod]
         public async Task VehicleService_GetVehicleTestAsync()
         {
-            var dbRepo = container.Resolve<IDatabaseRepo>();
+           
             var vehicle = new Vehicle()
             {
                 Id = new Guid("8c9e6679-7425-40de-944b-e07fc1f90ae7"),
