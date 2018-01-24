@@ -8,6 +8,7 @@ namespace LearningTesting.IServices
     public interface IVehicleService
     {
         Vehicle GetVehicle(Guid vehicleRegistration);
+        IEnumerable<Vehicle> GetVehicles();
         IEnumerable<Vehicle> GetVehicleByColour(string colour);
         Vehicle AddVehicle(Vehicle v);
     }

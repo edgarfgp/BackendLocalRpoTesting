@@ -29,10 +29,11 @@ namespace LearningTesting.Test
         [TestMethod]
         public async Task VehicleService_AddVehicleTestAsync()
         {
-            IDatabaseRepo dbRepo = container.Resolve<IDatabaseRepo>();
+            var dbRepo = container.Resolve<IDatabaseRepo>();
 
             var vehicle = new Vehicle()
             {
+                Id = Guid.NewGuid(),
                 VechicleRegistration = Guid.NewGuid(),
                 Brand = "FORD",
                 Model = "FOCUS",
@@ -48,23 +49,24 @@ namespace LearningTesting.Test
         [TestMethod]
         public async Task VehicleService_GetVehicleTestAsync()
         {
-            IDatabaseRepo dbRepo = container.Resolve<IDatabaseRepo>();
+            var dbRepo = container.Resolve<IDatabaseRepo>();
             var vehicle = new Vehicle()
             {
-                VechicleRegistration = Guid.NewGuid(),
+                Id = new Guid("8c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                VechicleRegistration = new Guid("7c9e6679-7425-40de-944b-e07fc1f90ae7"),
                 Brand = "FORD",
                 Model = "FOCUS",
                 Colour = "Black"
             };
+           
 
-            var resultMem_Create = await dbRepo.Create<Vehicle>(vehicle);
-            var resultSer_Create = vehicleService.AddVehicle(vehicle);
+            await dbRepo.Create<Vehicle>(vehicle);
+          
+            var resultMemGet = await dbRepo.Get<Vehicle>(vehicle.Id);
+            var resultSer = vehicleService.GetVehicle(vehicle.VechicleRegistration);
 
-            
-            var resultMem_Get = await dbRepo.Get<Vehicle>(resultMem_Create.VechicleRegistration);
-            var resultSer_Get = vehicleService.GetVehicle(resultSer_Create.VechicleRegistration);
+            Assert.AreEqual(resultMemGet.VechicleRegistration, resultSer.VechicleRegistration);
 
-            Assert.AreEqual(resultMem_Get.VechicleRegistration, resultSer_Get.VechicleRegistration);
         }
 
         [TestMethod]

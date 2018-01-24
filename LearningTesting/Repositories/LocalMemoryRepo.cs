@@ -37,8 +37,7 @@ namespace LearningTesting.Repositories
             if (i == null)
             {
                 var cloned = document.CloneBySerialization();
-
-                UpdateBaseObject<T>(Guid.NewGuid(), cloned);
+                //UpdateBaseObject<T>(Guid.NewGuid(), cloned);
 
                 list.Add(cloned);
 
@@ -46,7 +45,9 @@ namespace LearningTesting.Repositories
             }
             else
             {
+              
                 throw new ArgumentException("Key already present in database.");
+                
                 //return null;
             }
         }

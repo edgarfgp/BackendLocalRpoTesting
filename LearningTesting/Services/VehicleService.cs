@@ -13,7 +13,7 @@ namespace LearningTesting.Services
         {
             new Vehicle()
             {
-                VechicleRegistration=Guid.NewGuid(),
+                VechicleRegistration= new Guid("7c9e6679-7425-40de-944b-e07fc1f90ae7"),
                 Brand="BMW",
                 Model="320D",
                 Colour="Black"
@@ -49,7 +49,11 @@ namespace LearningTesting.Services
           
         public Vehicle GetVehicle(Guid id)
         {
-            return listVehicles.Where(v => v.Id.Equals(id)).FirstOrDefault();
+            return listVehicles.FirstOrDefault(v => v.VechicleRegistration.Equals(id));
+        }
+        public IEnumerable<Vehicle> GetVehicles()
+        {
+            return listVehicles;
         }
 
         public IEnumerable<Vehicle> GetVehicleByColour(string colour)
