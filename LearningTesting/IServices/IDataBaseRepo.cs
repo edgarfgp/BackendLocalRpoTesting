@@ -20,15 +20,15 @@ namespace LearningTesting.IServices
             /// <param name="document">Object reference.</param>
             /// <returns>The just created object.</returns>
             Task<T> Create<T>(T document) where T : ObjectBase;
-
-            /// <summary>
-            /// Update an object on the repository
-            /// </summary>
-            /// <typeparam name="T"><see cref="ObjectBase"/> derive type</typeparam>
-            /// <param name="Id">Identifier of the object in the Repository</param>
-            /// <param name="document">Content used to modify the object.</param>
-            /// <returns>The just updated object.</returns>
-            Task<T> Update<T>(Guid Id, T document) where T : ObjectBase;
+          
+        /// <summary>
+        /// Update an object on the repository
+        /// </summary>
+        /// <typeparam name="T"><see cref="ObjectBase"/> derive type</typeparam>
+        /// <param name="Id">Identifier of the object in the Repository</param>
+        /// <param name="document">Content used to modify the object.</param>
+        /// <returns>The just updated object.</returns>
+        Task<T> Update<T>(Guid Id, T document) where T : ObjectBase;
 
             /// <summary>
             /// Delete an object from the repository
