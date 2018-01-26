@@ -14,17 +14,11 @@ namespace LearningTesting.Repositories
     {
         
 
-        /// <summary>
-        /// Local in memory list of objects. Used to access from testing.
-        /// </summary>
+        
         public static List<ObjectBase> list = new List<ObjectBase>();
 
 
-        /// <summary>
-        /// Add object to in memory list of Objects.
-        /// </summary>
-        /// <typeparam name="T">Object class.</typeparam>
-        /// <param name="item">Object will be added in memory.</param>
+        
         public void Add<T>(T item) where T : ObjectBase
         {
             list.Add(item);
@@ -37,7 +31,7 @@ namespace LearningTesting.Repositories
             if (i == null)
             {
                 var cloned = document.CloneBySerialization();
-                UpdateBaseObject<T>(Guid.NewGuid(), cloned);
+                UpdateBaseObject(Guid.NewGuid(), cloned);
 
                 list.Add(cloned);
 
@@ -64,7 +58,7 @@ namespace LearningTesting.Repositories
 
             var cloned = document.CloneBySerialization();
 
-            UpdateBaseObject<T>(Id, cloned);
+            UpdateBaseObject(Id, cloned);
 
             list.Add(cloned);
 
@@ -73,7 +67,7 @@ namespace LearningTesting.Repositories
 
         Task<bool> IDatabaseRepo.Delete<T>(Guid Id)
         {
-            bool ret = false;
+            var ret = false;
 
             ObjectBase doc = list.Find(n => n.Id == Id);
 
@@ -92,7 +86,7 @@ namespace LearningTesting.Repositories
 
         Task<T> IDatabaseRepo.Get<T>(Guid Id)
         {
-            T doc = (T)(object)list.Find(d => d.Id == Id);
+            var doc = (T)(object)list.Find(d => d.Id == Id);
 
             //not found
             if (doc == null)
@@ -121,7 +115,7 @@ namespace LearningTesting.Repositories
         {
             var l1 = list.Where(n => n.Class == typeof(T).Name);
 
-            Func<T, bool> func = predicate.Compile();
+            var func = predicate.Compile();
 
             var l2 = l1.Cast<T>();
 
@@ -136,12 +130,12 @@ namespace LearningTesting.Repositories
         {
             var l1 = list.Where(n => n.Class == typeof(T).Name);
 
-            Func<T, bool> func1 = predicate1.Compile();
+            var func1 = predicate1.Compile();
             var l2 = l1.Cast<T>();
 
             var l3 = l2.Where(n => func1(n));
 
-            Func<T, bool> func2 = predicate2.Compile();
+            var func2 = predicate2.Compile();
 
             var l4 = l3.Where(n => func2(n));
             var l5 = l4.Cast<T>();
@@ -158,7 +152,7 @@ namespace LearningTesting.Repositories
         }
 
         //private
-        private void UpdateBaseObject<T>(Guid id, T object2Update) where T : ObjectBase
+        private static void UpdateBaseObject<T>(Guid id, T object2Update) where T : ObjectBase
         {
             object2Update.Id = id;
             object2Update.Class = typeof(T).Name;

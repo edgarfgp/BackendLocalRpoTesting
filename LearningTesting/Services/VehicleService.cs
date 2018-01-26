@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace LearningTesting.Services
 {
-    /// <summary>
-    /// VehicleService contains Stub Login Implementation 
-    ///  
-    /// </summary>
+    
     public class VehicleService : IVehicleService
     {
         private IDatabaseRepo databaseRepo;

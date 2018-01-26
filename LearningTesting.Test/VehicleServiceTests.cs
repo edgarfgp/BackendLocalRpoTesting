@@ -17,6 +17,8 @@ namespace LearningTesting.Test
         private IUnityContainer container;
         private IVehicleService vehicleService;
 
+        private IDatabaseRepo4Admin repo4Admin;
+
         [TestInitialize]
         public async Task Setup()
         {
@@ -24,6 +26,10 @@ namespace LearningTesting.Test
             await Helpers.LearningTestingHelper.RegisterLearningTestingHelper(container);
             container.RegisterType<IVehicleService, VehicleService>();
             vehicleService = container.Resolve<IVehicleService>();
+            repo4Admin = container.Resolve<IDatabaseRepo4Admin>();
+
+
+            await repo4Admin.ClearRepo();
         }
 
         [TestMethod]
@@ -61,7 +67,6 @@ namespace LearningTesting.Test
             var expected = await vehicleService.GetVehicle(actual.Id);
 
             Assert.AreEqual(expected.Id, actual.Id);
-            await dbRepo.Delete<Vehicle>(expected.Id);
 
 
         }
@@ -98,7 +103,6 @@ namespace LearningTesting.Test
             var expected = await vehicleService.UpdateVehicle(actual.Id, actual);
 
             Assert.AreNotEqual(expected.Colour, vehicle.Colour);
-            await dbRepo.Delete<Vehicle>(expected.Id);
         }
 
 
@@ -126,8 +130,7 @@ namespace LearningTesting.Test
             var expected = await vehicleService.GetVehicles();
 
             Assert.IsTrue(expected.ToList().Any());
-            await dbRepo.Delete<Vehicle>(actual1.Id);
-            await dbRepo.Delete<Vehicle>(actual2.Id);
+           
 
         }
 
