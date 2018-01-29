@@ -12,15 +12,14 @@ namespace LearningTesting.Services
     public class VehicleService : IVehicleService
     {
         private IDatabaseRepo databaseRepo;
-        private IDatabaseRepo4Admin repo4Admin;
+
 
         public VehicleService(IDatabaseRepo databaseRepo, IDatabaseRepo4Admin repo4Admin)
         {
             this.databaseRepo = databaseRepo;
-            this.repo4Admin = repo4Admin;
+
         }
 
-       
         async Task<IEnumerable<Vehicle>> IVehicleService.GetVehicles()
         {
             return await databaseRepo.Get<Vehicle>();

@@ -46,7 +46,7 @@ namespace LearningTesting.Test
             var expected = await vehicleService.AddVehicle(vehicle);
 
             Assert.AreNotEqual(expected.Id, vehicle.Id);
-            await dbRepo.Delete<Vehicle>(expected.Id);
+            
         }
 
        
@@ -104,8 +104,6 @@ namespace LearningTesting.Test
 
             Assert.AreNotEqual(expected.Colour, vehicle.Colour);
         }
-
-
 
         [TestMethod]
         public async Task VehicleService_GetVehicles()

@@ -58,17 +58,7 @@ namespace LearningTesting.Extensions
         /// <returns>true if the object is null or his ToString returns empty string.</returns>
         public static bool IsNullOrToStringEmpty(this object obj)
         {
-            return obj.IsNull() ? true :
-                obj.ToString().IsEmpty();
-        }
-        /// <summary>
-        /// Checks if the object is null and if the output of his derive ToString returns empty.
-        /// </summary>
-        /// <param name="obj">Target object.</param>
-        /// <returns>true if the object is not null and his ToString returns different than empty string.</returns>
-        public static bool IsNotNullOrToStringEmpty(this object obj)
-        {
-            return !obj.IsNotNullOrToStringEmpty();
+            return obj.IsNull() || obj.ToString().IsEmpty();
         }
 
         //Csv valid values.

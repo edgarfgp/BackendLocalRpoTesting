@@ -12,13 +12,13 @@ namespace LearningTesting.Repositories
 {
     public class LocalMemoryRepo : IDatabaseRepo, IDatabaseRepo4Admin
     {
-        
 
-        
+
+
         public static List<ObjectBase> list = new List<ObjectBase>();
 
 
-        
+
         public void Add<T>(T item) where T : ObjectBase
         {
             list.Add(item);
@@ -39,9 +39,9 @@ namespace LearningTesting.Repositories
             }
             else
             {
-              
+
                 throw new ArgumentException("Key already present in database.");
-                
+
                 //return null;
             }
         }
